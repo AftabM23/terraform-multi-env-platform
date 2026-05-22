@@ -17,14 +17,10 @@ variable "resource_group_name" {
   type = string
   description = "name of the resource group"
 }
-variable "subnet_name" {
-  type = string
-  description = "Name of the subnet"
-  
-}
 
-variable "subnet_address_prefixes" {
-  type = list(string)
-  description = "subnet address prefix"
-  
+
+variable "subnets" {
+  type = map(object({
+    address_prefixes = list(string)
+  }))
 }
