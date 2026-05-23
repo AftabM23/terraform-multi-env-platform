@@ -22,5 +22,14 @@ variable "resource_group_name" {
 variable "subnets" {
   type = map(object({
     address_prefixes = list(string)
+    nsg_name =string
+    rules = map(object({
+      name = string
+      priority = number
+      port = string
+      source = string 
+    }))
   }))
 }
+
+

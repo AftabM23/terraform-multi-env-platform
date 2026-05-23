@@ -14,12 +14,15 @@ module "network" {
   subnets = {
     webSubnet ={
       address_prefixes = ["10.0.1.0/24"]
+      nsg_name = "internet-web-nsg"
     },
     appSubnet = {
       address_prefixes = ["10.0.2.0/24"]
+      nsg_name = "web-app-nsg"
     }
     dbSubnet ={
       address_prefixes = ["10.0.3.0/24"]
+      nsg_name = "app-db-nsg"
     }
   }
 
