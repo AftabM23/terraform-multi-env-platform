@@ -13,6 +13,10 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
 # terracode
 - task: TerraformTask@5
   inputs:
