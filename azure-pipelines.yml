@@ -27,3 +27,5 @@ steps:
     backendAzureRmStorageAccountName: 'abstorage23'
     backendAzureRmContainerName: 'tf-state-container01'
     backendAzureRmKey: $(backedn-key)
+
+    -task : terraform init
