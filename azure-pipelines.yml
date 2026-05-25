@@ -17,12 +17,3 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-- task: TerraformTask@5
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'Azure subscription 1(b14398ec-6e89-44a6-ad7c-d7dfcf9ffac5)'
-    backendAzureRmResourceGroupName: 'rg-linux-practice'
-    backendAzureRmStorageAccountName: 'abstorage23'
-    backendAzureRmContainerName: 'tf-state-container01'
-    backendAzureRmKey: $(backedn-key)
