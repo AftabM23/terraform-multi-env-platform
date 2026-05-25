@@ -13,16 +13,11 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
-- task: TerraformInstaller@1
-  inputs:
-    terraformVersion: 'latest'
 
 
+=======
+# terracode
+>>>>>>> 5d6c031d23930ddfd33131aef7b1628af54ddcc7
 - task: TerraformTask@5
   inputs:
     provider: 'azurerm'
@@ -32,3 +27,7 @@ steps:
     backendAzureRmStorageAccountName: 'abstorage23'
     backendAzureRmContainerName: 'tf-state-container01'
     backendAzureRmKey: $(backedn-key)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5d6c031d23930ddfd33131aef7b1628af54ddcc7
