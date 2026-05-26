@@ -22,7 +22,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    backendServiceArm: 'Azure subscription 1(b14398ec-6e89-44a6-ad7c-d7dfcf9ffac5)'
+    backendServiceArm: 'terra-con'
     backendAzureRmResourceGroupName: 'rg-linux-practice'
     backendAzureRmStorageAccountName: 'abstorage23'
     backendAzureRmContainerName: 'tf-state-container01'
