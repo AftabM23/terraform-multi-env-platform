@@ -14,7 +14,7 @@ stages:
       inputs:
         terraformVersion: '1.10.5'
 
-    - task: TerraformTaskV4@5
+    - task: TerraformTask@5
       displayName: 'Init'
       inputs:
         provider: 'azurerm'
@@ -26,7 +26,7 @@ stages:
         backendAzureRmKey: $(backend-key)
         backendAzureRmUseEntraIdForAuthentication: true
 
-    - task: TerraformTaskV4@5
+    - task: TerraformTask@5
       displayName: 'Plan'
       inputs:
         provider: 'azurerm'
@@ -62,7 +62,7 @@ stages:
         backendAzureRmKey: $(backend-key)
         backendAzureRmUseEntraIdForAuthentication: true
 
-    - task: TerraformTaskV4@5
+    - task: TerraformTask@5
       displayName: 'Apply'
       inputs:
         provider: 'azurerm'
