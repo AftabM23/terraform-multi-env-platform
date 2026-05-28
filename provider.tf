@@ -5,7 +5,7 @@ terraform {
       version = "4.70.0"
     }
   }
-   backend "azurerm" {
+  backend "azurerm" {
     resource_group_name  = "rg-linux-practice"
     storage_account_name = "abstorage23"
     container_name       = "tf-state-container01"
@@ -15,8 +15,11 @@ terraform {
 }
 
 provider "azurerm" {
- features {
-   
- }
+  features {
+
+  }
+  use_cli         = false
+  use_oidc        = true
+  subscription_id = "b14398ec-6e89-44a6-ad7c-d7dfcf9ffac5"
 
 }
