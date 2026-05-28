@@ -21,7 +21,7 @@ stages:
         backendAzureRmResourceGroupName: 'rg-linux-practice'
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
-        backendAzureRmKey: $(backedn-key)
+        backendAzureRmKey: $(backend-key)
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
@@ -31,11 +31,11 @@ stages:
 - stage: Apply
   dependsOn : Plan
   jobs:
-  - job: InstallTerra
-    steps:
-    - task: TerraformInstaller@1
-      inputs:
-        terraformVersion: $(version)
+  # - job: InstallTerra
+  #   steps:
+  #   - task: TerraformInstaller@1
+  #     inputs:
+  #       terraformVersion: $(version)
 
   - job: TerraformApply
     steps:
