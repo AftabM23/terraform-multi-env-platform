@@ -1,21 +1,21 @@
-
 trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
+
 stages:
 - stage: Plan
   jobs:
   - job: TerraformPlan
     steps:
     - task: TerraformInstaller@1
-      displayName: 'Installing Terra'
+      displayName: 'Install Terraform'
       inputs:
-        terraformVersion: 1.10.5
+        terraformVersion: '1.10.5'
 
-    - task: TerraformTask@5
-      displayName: 'Initializing Terra'
+    - task: TerraformTaskV4@5
+      displayName: 'Init'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -25,25 +25,33 @@ stages:
         backendAzureRmContainerName: 'tf-state-container01'
         backendAzureRmKey: $(backend-key)
         backendAzureRmUseEntraIdForAuthentication: true
-        
-    - task: TerraformTask@5
-      displayName : 'Planning Terraform'
+
+    - task: TerraformTaskV4@5
+      displayName: 'Plan'
       inputs:
         provider: 'azurerm'
         command: 'plan'
         environmentServiceNameAzureRM: 'terra-con'
+        commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
+
+    - publish: $(Build.ArtifactStagingDirectory)/tfplan
+      artifact: tfplan
 
 - stage: Apply
-  dependsOn : Plan
+  dependsOn: Plan
   jobs:
   - job: Apply
     steps:
+    - download: current
+      artifact: tfplan
+
     - task: TerraformInstaller@1
-      displayName: 'Installing Terraform'
+      displayName: 'Install Terraform'
       inputs:
-        terraformVersion: 1.10.5
-    - task: TerraformTask@5
-      displayName: 'Initializing Terra'
+        terraformVersion: '1.10.5'
+
+    - task: TerraformTaskV4@5
+      displayName: 'Init'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -54,9 +62,10 @@ stages:
         backendAzureRmKey: $(backend-key)
         backendAzureRmUseEntraIdForAuthentication: true
 
-    - task: TerraformTask@5
-      displayName: "Applying changes"
+    - task: TerraformTaskV4@5
+      displayName: 'Apply'
       inputs:
         provider: 'azurerm'
         command: 'apply'
         environmentServiceNameAzureRM: 'terra-con'
+        commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
