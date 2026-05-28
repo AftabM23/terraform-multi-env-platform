@@ -9,12 +9,9 @@ stages:
   jobs:
   - job: TerraformPlan
     steps:
-    - script: echo Hello, world!
-      displayName: 'Run a one-line script'
-
     - task: TerraformInstaller@1
       inputs:
-        terraformVersion: 'latest'
+        terraformVersion: $(version)
 
     - task: TerraformTask@5
       inputs:
@@ -34,6 +31,12 @@ stages:
 - stage: Apply
   dependsOn : Plan
   jobs:
+  - job: InstallTerra
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: $(version)
+
   - job: TerraformApply
     steps:
     - task: TerraformTask@5
