@@ -10,6 +10,7 @@ terraform {
     storage_account_name = "abstorage23"
     container_name       = "tf-state-container01"
     key                  = "test/test.terraform.tfstate"
+    use_oidc             = true
   }
 }
 
