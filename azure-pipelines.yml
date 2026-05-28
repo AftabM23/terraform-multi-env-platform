@@ -31,11 +31,11 @@ stages:
 - stage: Apply
   dependsOn : Plan
   jobs:
-  - job: InstallTerra
-    steps:
-    - task: TerraformInstaller@1
-      inputs:
-        terraformVersion: $(version)
+  # - job: InstallTerra
+  #   steps:
+  #   - task: TerraformInstaller@1
+  #     inputs:
+  #       terraformVersion: $(version)
 
   - job: TerraformApply
     steps:
