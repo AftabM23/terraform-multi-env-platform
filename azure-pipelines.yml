@@ -9,33 +9,67 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
 
-- task: TerraformInstaller@1
-  inputs:
-    terraformVersion: $(version)
+- stage: Plan
+  jobs :
+  - job: TerraformPlan
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: $(version)
 
 
-- task: TerraformTask@5
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'terra-con'
-    backendAzureRmResourceGroupName: 'rg-linux-practice'
-    backendAzureRmStorageAccountName: 'abstorage23'
-    backendAzureRmContainerName: 'tf-state-container01'
-    backendAzureRmKey: $(backend-key)
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'terra-con'
+        backendAzureRmResourceGroupName: 'rg-linux-practice'
+        backendAzureRmStorageAccountName: 'abstorage23'
+        backendAzureRmContainerName: 'tf-state-container01'
+        backendAzureRmKey: $(backend-key)
 
-- task: TerraformTask@5
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    environmentServiceNameAzureRM: 'terra-con'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'fmt'
+        environmentServiceNameAzureRM: 'terra-con'
 
-- task: TerraformTask@5
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    environmentServiceNameAzureRM: 'terra-con'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        environmentServiceNameAzureRM: 'terra-con'
+
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: 'terra-con'
+
+- stage: Apply
+  dependsOn : Plan
+  jobs :
+  - job: TerraformApply
+    steps: 
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: $(version)
+
+
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'terra-con'
+        backendAzureRmResourceGroupName: 'rg-linux-practice'
+        backendAzureRmStorageAccountName: 'abstorage23'
+        backendAzureRmContainerName: 'tf-state-container01'
+        backendAzureRmKey: $(backend-key)
+
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'terra-con'
