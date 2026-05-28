@@ -23,10 +23,9 @@ stages:
         addSpnToEnvironment: true
         inlineScript: |
           echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
-          echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET]$servicePrincipalKey"
+          echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$servicePrincipalKey"
           echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
-          echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)"
-
+          echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$(az account show --query id -o tsv)"
     - task: TerraformTask@5
       displayName: 'Init'
       inputs:
