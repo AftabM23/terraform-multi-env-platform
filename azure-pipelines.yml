@@ -24,6 +24,8 @@ stages:
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
         backendAzureRmKey: $(backend-key)
+        backendAzureRmUseEntraIdForAuthentication: true
+        
     - task: TerraformTask@5
       displayName : 'Planning Terraform'
       inputs:
@@ -50,6 +52,8 @@ stages:
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
         backendAzureRmKey: $(backend-key)
+        backendAzureRmUseEntraIdForAuthentication: true
+
     - task: TerraformTask@5
       displayName: "Applying changes"
       inputs:
