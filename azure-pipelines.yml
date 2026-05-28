@@ -13,25 +13,12 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.10.5'
-
-    - task: AzureCLI@2
-      displayName: 'Set ARM env vars'
-      inputs:
-        azureSubscription: 'terra-con'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        addSpnToEnvironment: true
-        inlineScript: |
-          echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
-          echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$servicePrincipalKey"
-          echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
-          echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$(az account show --query id -o tsv)"
     - task: TerraformTask@5
       displayName: 'Init'
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: 'terra-con'
+        backendServiceArm: 'terra-connection'
         backendAzureRmResourceGroupName: 'rg-linux-practice'
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
@@ -43,7 +30,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        environmentServiceNameAzureRM: 'terra-con'
+        environmentServiceNameAzureRM: 'terra-connection'
         commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
 
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
@@ -67,7 +54,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: 'terra-con'
+        backendServiceArm: 'terra-connection'
         backendAzureRmResourceGroupName: 'rg-linux-practice'
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
