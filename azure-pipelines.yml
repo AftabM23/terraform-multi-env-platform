@@ -12,7 +12,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'Installing Terra'
       inputs:
-        terraformVersion: $(version)
+        terraformVersion: 1.10.5
 
     - task: TerraformTask@5
       displayName: 'Initializing Terra'
@@ -39,7 +39,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'Installing Terraform'
       inputs:
-        terraformVersion: $(version)
+        terraformVersion: 1.10.5
     - task: TerraformTask@5
       displayName: 'Initializing Terra'
       inputs:
