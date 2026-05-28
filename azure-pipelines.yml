@@ -10,10 +10,12 @@ stages:
   - job: TerraformPlan
     steps:
     - task: TerraformInstaller@1
+      displayName: 'Installing Terra'
       inputs:
-        terraformVersion: $(version)
+        terraformVersion: 1.10.5
 
     - task: TerraformTask@5
+      displayName: 'Initializing Terra'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -22,7 +24,10 @@ stages:
         backendAzureRmStorageAccountName: 'abstorage23'
         backendAzureRmContainerName: 'tf-state-container01'
         backendAzureRmKey: $(backend-key)
+        backendAzureRmUseEntraIdForAuthentication: true
+        
     - task: TerraformTask@5
+      displayName : 'Planning Terraform'
       inputs:
         provider: 'azurerm'
         command: 'plan'
@@ -31,15 +36,26 @@ stages:
 - stage: Apply
   dependsOn : Plan
   jobs:
-  # - job: InstallTerra
-  #   steps:
-  #   - task: TerraformInstaller@1
-  #     inputs:
-  #       terraformVersion: $(version)
-
-  - job: TerraformApply
+  - job: Apply
     steps:
+    - task: TerraformInstaller@1
+      displayName: 'Installing Terraform'
+      inputs:
+        terraformVersion: 1.10.5
     - task: TerraformTask@5
+      displayName: 'Initializing Terra'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'terra-con'
+        backendAzureRmResourceGroupName: 'rg-linux-practice'
+        backendAzureRmStorageAccountName: 'abstorage23'
+        backendAzureRmContainerName: 'tf-state-container01'
+        backendAzureRmKey: $(backend-key)
+        backendAzureRmUseEntraIdForAuthentication: true
+
+    - task: TerraformTask@5
+      displayName: "Applying changes"
       inputs:
         provider: 'azurerm'
         command: 'apply'
