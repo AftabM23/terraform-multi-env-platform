@@ -15,7 +15,7 @@ steps:
 
 - task: TerraformInstaller@1
   inputs:
-    terraformVersion: 'latest'
+    terraformVersion: $(version)
 
 
 - task: TerraformTask@5
