@@ -16,7 +16,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Init'
       inputs:
-        azureSubscription: 'terra-con'
+        azureSubscription: 'terra-con2'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         addSpnToEnvironment: true
@@ -44,7 +44,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        environmentServiceNameAzureRM: 'terra-connection'
+        environmentServiceNameAzureRM: 'terra-con2'
         commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
 
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
@@ -66,7 +66,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Init'
       inputs:
-        azureSubscription: 'terra-con'
+        azureSubscription: 'terra-con2'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         addSpnToEnvironment: true
@@ -94,5 +94,5 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        environmentServiceNameAzureRM: 'terra-con'
+        environmentServiceNameAzureRM: 'terra-con2'
         commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
