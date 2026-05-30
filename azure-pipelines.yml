@@ -28,8 +28,8 @@ stages:
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           
           terraform init \
-            -backend-config="resource_group_name=rg-linux-practice" \
-            -backend-config="storage_account_name=abstorage23" \
+            -backend-config="resource_group_name=ab-terrastorage" \
+            -backend-config="storage_account_name=abstorageterra" \
             -backend-config="container_name=tf-state-container01" \
             -backend-config="key=$(backend-key)" \
             -backend-config="use_azuread_auth=true" \
@@ -78,8 +78,8 @@ stages:
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           
           terraform init \
-            -backend-config="resource_group_name=rg-linux-practice" \
-            -backend-config="storage_account_name=abstorage23" \
+            -backend-config="resource_group_name=ab-terrastorage" \
+            -backend-config="storage_account_name=abstorageterra" \
             -backend-config="container_name=tf-state-container01" \
             -backend-config="key=$(backend-key)" \
             -backend-config="use_azuread_auth=true" \
