@@ -48,16 +48,31 @@ stages:
     #     backendAzureRmKey: $(backend-key)
         
 
-    - task: TerraformTask@5
+    # - task: TerraformTask@5
+    #   displayName: 'Plan'
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'plan'
+    #     environmentServiceNameAzureRM: 'terra-con'
+    #     commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
+
+    - task: AzureCLI@2
       displayName: 'Plan'
       inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        environmentServiceNameAzureRM: 'terra-con'
-        commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
+        azureSubscription: 'terra-con'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        addSpnToEnvironment: true
+        inlineScript: |
+          export ARM_USE_OIDC=true
+          export ARM_OIDC_TOKEN=$idToken
+          export ARM_CLIENT_ID=$servicePrincipalId
+          export ARM_TENANT_ID=$tenantId
+          export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
-    - publish: $(Build.ArtifactStagingDirectory)/tfplan
-      artifact: tfplan
+          terraform plan -out=$(Build.ArtifactStagingDirectory)/tfplan
+
+       
 
 - stage: Apply
   dependsOn: Plan
