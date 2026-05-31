@@ -92,7 +92,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Init'
       inputs:
-        azureSubscription: 'terra-con2'
+        azureSubscription: 'terra-con'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         addSpnToEnvironment: true
@@ -114,7 +114,6 @@ stages:
             -backend-config="client_id=$servicePrincipalId" \
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
-
     - task: TerraformTask@5
       displayName: 'Apply'
       inputs:
