@@ -38,6 +38,7 @@ stages:
             -backend-config="client_id=$servicePrincipalId" \
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
+          echo "State Serial:"terraform state pull | jq '.serial'
     # - task: TerraformTask@5
     #   inputs:
     #     provider: 'azurerm'
@@ -114,6 +115,7 @@ stages:
             -backend-config="client_id=$servicePrincipalId" \
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
+          echo "State Serial:"terraform state pull | jq '.serial'
     # - task: TerraformTask@5
     #   displayName: 'Apply'
     #   inputs:
