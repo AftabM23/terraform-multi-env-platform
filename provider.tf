@@ -6,8 +6,8 @@ terraform {
     }
   }
   backend "azurerm" {
-  resource_group_name  = "rg-linux-practice"
-  storage_account_name = "abstorage23"
+  resource_group_name  = "ab-terrastorage"
+  storage_account_name = "abstorageterra"
   container_name       = "tf-state-container01"
   key                  = "test/test.terraform.tfstate"
   use_azuread_auth     = true
@@ -19,8 +19,6 @@ provider "azurerm" {
   features {
 
   }
-  use_cli         = false
-  use_oidc        = true
-  subscription_id = "b14398ec-6e89-44a6-ad7c-d7dfcf9ffac5"
+ 
 
 }
