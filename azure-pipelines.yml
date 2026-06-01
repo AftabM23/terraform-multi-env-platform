@@ -40,14 +40,6 @@ stages:
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
    
 
-    # - task: TerraformTask@5
-    #   displayName: 'Plan'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'plan'
-    #     environmentServiceNameAzureRM: 'terra-con'
-    #     commandOptions: '-out=$(Build.ArtifactStagingDirectory)/tfplan'
-
     - task: AzureCLI@2
       displayName: 'Plan'
       inputs:
@@ -120,15 +112,7 @@ stages:
             -backend-config="client_id=$servicePrincipalId" \
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
-         
-    # - task: TerraformTask@5
-    #   displayName: 'Apply'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'apply'
-    #     environmentServiceNameAzureRM: 'terra-con'
-    #     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
-    
+
     - task: AzureCLI@2
       displayName: 'Apply'
       inputs:
