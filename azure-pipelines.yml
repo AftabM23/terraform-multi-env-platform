@@ -76,9 +76,17 @@ stages:
           ls -la $(Build.ArtifactStagingDirectory)/
           du -sh $(Build.ArtifactStagingDirectory)/tfplan
 
+
+    - script: |
+        echo "=== Working Dir ==="
+        find . -name 'tfplan' -type f
+        echo "=== Staging Dir ==="
+        ls -la $(Build.ArtifactStagingDirectory)/
+      displayName: 'Debug before publish'
+
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
       artifact: tfplan
-       
+          
 
 - stage: Apply
   dependsOn: Plan
