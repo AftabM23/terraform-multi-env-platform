@@ -129,6 +129,13 @@ stages:
     #     command: 'apply'
     #     environmentServiceNameAzureRM: 'terra-con'
     #     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+          echo "State Serial:"terraform state pull | jq '.serial'
     - task: AzureCLI@2
       displayName: 'Apply'
       inputs:
