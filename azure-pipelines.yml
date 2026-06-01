@@ -87,6 +87,10 @@ stages:
     steps:
     - download: current
       artifact: tfplan
+    - script : |
+        ls -la $(Build.ArtifactStagingDirectory)/
+        du -sh $(Build.ArtifactStagingDirectory)/tfplan
+      
 
     - task: TerraformInstaller@1
       displayName: 'Install Terraform'
