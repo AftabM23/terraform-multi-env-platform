@@ -38,13 +38,7 @@ stages:
             -backend-config="client_id=$servicePrincipalId" \
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your commands here
-          
-          echo "State Serial:"terraform state pull | jq '.serial'
+   
     # - task: TerraformTask@5
     #   inputs:
     #     provider: 'azurerm'
@@ -129,13 +123,7 @@ stages:
     #     command: 'apply'
     #     environmentServiceNameAzureRM: 'terra-con'
     #     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your commands here
-          
-          echo "State Serial:"terraform state pull | jq '.serial'
+ 
     - task: AzureCLI@2
       displayName: 'Apply'
       inputs:
