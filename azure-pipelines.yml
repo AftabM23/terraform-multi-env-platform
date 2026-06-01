@@ -39,15 +39,6 @@ stages:
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
    
-    # - task: TerraformTask@5
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'init'
-    #     backendServiceArm: 'terra-con2'
-    #     backendAzureRmStorageAccountName: 'abstorageterra'
-    #     backendAzureRmContainerName: 'tf-state-container01'
-    #     backendAzureRmKey: $(backend-key)
-        
 
     # - task: TerraformTask@5
     #   displayName: 'Plan'
@@ -76,17 +67,14 @@ stages:
           ls -la $(Build.ArtifactStagingDirectory)/
           du -sh $(Build.ArtifactStagingDirectory)/tfplan
 
-
-    - script: |
-        echo "=== Working Dir ==="
-        find . -name 'tfplan' -type f
-        echo "=== Staging Dir ==="
-        ls -la $(Build.ArtifactStagingDirectory)/
-      displayName: 'Debug before publish'
-
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
       artifact: tfplan
-          
+    - script: |
+        echo "=== from PLAN stage ==="
+        find . -name 'tfplan' -type f
+        echo "===PLAN STAGE !!!!!  Staging Dir ==="
+        ls -la $(Build.ArtifactStagingDirectory)/
+      displayName: 'Debug before publish'
 
 - stage: Apply
   dependsOn: Plan
@@ -96,7 +84,7 @@ stages:
     - download: current
       artifact: tfplan
     - script : |
-        echo "=== Agent Work Dir ==="
+        echo "=== APPLY STAGE !!!!!!         gent Work Dir ==="
         find . -name 'tfplan' -type f
         # ls -la $(Build.ArtifactStagingDirectory)/
         # du -sh $(Build.ArtifactStagingDirectory)/tfplan
