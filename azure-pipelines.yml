@@ -88,6 +88,10 @@ stages:
     - download: current
       artifact: tfplan
     - script : |
+        echo "=== Pipeline Workspace ==="
+        find $(Pipeline.Workspace) -type f
+        echo "=== Agent Work Dir ==="
+        find $(Agent.WorkFolder) -type f
         ls -la $(Build.ArtifactStagingDirectory)/
         du -sh $(Build.ArtifactStagingDirectory)/tfplan
       
