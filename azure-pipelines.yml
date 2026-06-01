@@ -76,10 +76,20 @@ stages:
     - download: current
       artifact: tfplan
     - script : |
-        echo "=== APPLY STAGE !!!!!!         gent Work Dir ==="
-        find . -name 'tfplan' -type f
-        # ls -la $(Build.ArtifactStagingDirectory)/
-        # du -sh $(Build.ArtifactStagingDirectory)/tfplan
+        echo "PWD:"
+        pwd
+
+        echo "Pipeline Workspace:"
+        ls -laR $(Pipeline.Workspace)
+
+        echo "Agent Build Directory:"
+        ls -laR $(Agent.BuildDirectory)
+
+        echo "Default Working Directory:"
+        ls -laR $(System.DefaultWorkingDirectory)
+
+        echo "Searching tfplan..."
+        find /home/vsts/work -name tfplan -type f
       
 
     - task: TerraformInstaller@1
