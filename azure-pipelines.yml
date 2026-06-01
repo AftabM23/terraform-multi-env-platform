@@ -71,7 +71,8 @@ stages:
           export ARM_TENANT_ID=$tenantId
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
-          terraform plan -out=$(Build.ArtifactStagingDirectory)/tfplan
+          terraform plan -out=tfplan
+          cp tfplan $(Build.ArtifactStagingDirectory)/tfplan 
 
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
       artifact: tfplan
