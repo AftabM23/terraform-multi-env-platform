@@ -73,6 +73,8 @@ stages:
 
           terraform plan -out=tfplan
           cp tfplan $(Build.ArtifactStagingDirectory)/tfplan 
+          ls -la $(Build.ArtifactStagingDirectory)/
+          du -sh $(Build.ArtifactStagingDirectory)/tfplan
 
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
       artifact: tfplan
@@ -124,7 +126,7 @@ stages:
     #     command: 'apply'
     #     environmentServiceNameAzureRM: 'terra-con'
     #     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
- 
+    
     - task: AzureCLI@2
       displayName: 'Apply'
       inputs:
