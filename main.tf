@@ -8,7 +8,7 @@ module "rg" {
   source   = "./modules/resource_group"
   name     = "rg1-terra011"
   location = "canadacentral"
-
+}
 module "network" {
   source              = "./modules/networking"
   vnet_name           = "abvnet1"
