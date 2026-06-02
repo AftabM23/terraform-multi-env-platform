@@ -1,6 +1,6 @@
 module "rg" {
   source   = "./modules/resource_group"
-  name     = "rg1-terra"
+  name     = "rg1-terra01"
   location = "canadacentral"
 
 }
