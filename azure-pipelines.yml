@@ -80,14 +80,7 @@ stages:
         echo "PWD:"
         pwd
 
-        echo "Pipeline Workspace:"
-        ls -laR $(Pipeline.Workspace)
-
-        echo "Agent Build Directory:"
-        ls -laR $(Agent.BuildDirectory)
-
-        echo "Default Working Directory:"
-        ls -laR $(System.DefaultWorkingDirectory)
+        echo " artifact repooppooooooo"
         ls -la $(Build.ArtifactStagingDirectory)/
 
         echo "Searching tfplan..."
