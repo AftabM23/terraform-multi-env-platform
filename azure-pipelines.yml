@@ -132,4 +132,4 @@ stages:
           export ARM_TENANT_ID=$tenantId
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
-          terraform apply $(Pipeline.Workspace)/tfplan/tfplan
+          terraform apply /home/vsts/work/1/tfplan/tfplan
