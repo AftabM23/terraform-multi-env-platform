@@ -4,6 +4,12 @@ module "rg" {
   location = "canadacentral"
 
 }
+module "rg1" {
+  source   = "./modules/resource_group"
+  name     = "rg1-terra011"
+  location = "canadacentral"
+
+}
 
 module "network" {
   source              = "./modules/networking"
