@@ -121,5 +121,5 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'tfplan'
+        commandOptions: '$(Build.ArtifactStagingDirectory)/tfplan'
         environmentServiceNameAzureRM: 'terra-con'
