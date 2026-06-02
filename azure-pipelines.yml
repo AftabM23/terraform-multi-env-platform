@@ -55,19 +55,10 @@ stages:
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
           terraform plan -out=tfplan
-          cp tfplan $(Build.ArtifactStagingDirectory)/tfplan 
-          ls -la $(Build.ArtifactStagingDirectory)/
-          du -sh $(Build.ArtifactStagingDirectory)/tfplan
-
+          
     - publish: $(Build.ArtifactStagingDirectory)/tfplan
       artifact: tfplan
-    - script: |
-        echo "=== from PLAN stage ==="
-        find . -name 'tfplan' -type f
-        echo "===PLAN STAGE !!!!!  Staging Dir ==="
-        ls -la $(Build.ArtifactStagingDirectory)/
-        find /home/vsts/work -name tfplan -type f
-      displayName: 'Debug before publish'
+    
 
 - stage: Apply
   dependsOn: Plan
@@ -76,15 +67,7 @@ stages:
     steps:
     - download: current
       artifact: tfplan
-    - script : |
-        echo "PWD:"
-        pwd
-
-        echo " artifact repooppooooooo"
-        ls -la $(Build.ArtifactStagingDirectory)/
-
-        echo "Searching tfplan..."
-        find /home/vsts/work -name tfplan -type f
+    
       
 
     - task: TerraformInstaller@1
@@ -118,14 +101,9 @@ stages:
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
 
 
-    # - task: TerraformTask@5
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'custom'
-    #     customCommand: 'import'
-    #     commandOptions: 'module.rg.azurerm_resource_group.this /subscriptions/e6d27e03-2124-434f-bd0d-14c30baaa1d8/resourceGroups/rg1-terra01'
-    #     environmentServiceNameAzureRM: 'terra-con'
+
     - task: TerraformTask@5
+      displayName: 'Apply the infra'
       inputs:
         provider: 'azurerm'
         command: 'apply'
