@@ -8,7 +8,7 @@ terraform {
   backend "azurerm" {
   resource_group_name  = "ab-terrastorage"
   storage_account_name = "abstorageterra"
-  container_name       = "tf-state-container01"
+  container_name       = "tf-state-container02"
   key                  = "tfstate"
   use_azuread_auth     = true
   use_oidc             = true
