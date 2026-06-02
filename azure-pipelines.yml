@@ -118,13 +118,13 @@ stages:
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
 
 
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'custom'
-        customCommand: 'import'
-        commandOptions: 'module.rg.azurerm_resource_group.this /subscriptions/e6d27e03-2124-434f-bd0d-14c30baaa1d8/resourceGroups/rg1-terra01'
-        environmentServiceNameAzureRM: 'terra-con'
+    # - task: TerraformTask@5
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'custom'
+    #     customCommand: 'import'
+    #     commandOptions: 'module.rg.azurerm_resource_group.this /subscriptions/e6d27e03-2124-434f-bd0d-14c30baaa1d8/resourceGroups/rg1-terra01'
+    #     environmentServiceNameAzureRM: 'terra-con'
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
