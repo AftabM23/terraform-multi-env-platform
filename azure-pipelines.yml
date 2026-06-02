@@ -31,7 +31,7 @@ stages:
             -backend-config="resource_group_name=ab-terrastorage" \
             -backend-config="storage_account_name=abstorageterra" \
             -backend-config="container_name=tf-state-container01" \
-            -backend-config="key=$(backend-key)" \
+            # -backend-config="key=$(backend-key)" \
             -backend-config="use_azuread_auth=true" \
             -backend-config="use_oidc=true" \
             -backend-config="oidc_token=$idToken" \
