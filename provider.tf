@@ -9,7 +9,7 @@ terraform {
   resource_group_name  = "ab-terrastorage"
   storage_account_name = "abstorageterra"
   container_name       = "tf-state-container01"
-  key                  = "test/test.terraform.tfstate"
+  key                  = "tfstate"
   use_azuread_auth     = true
   use_oidc             = true
 }
