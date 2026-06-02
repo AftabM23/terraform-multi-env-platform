@@ -66,6 +66,7 @@ stages:
         find . -name 'tfplan' -type f
         echo "===PLAN STAGE !!!!!  Staging Dir ==="
         ls -la $(Build.ArtifactStagingDirectory)/
+        find /home/vsts/work -name tfplan -type f
       displayName: 'Debug before publish'
 
 - stage: Apply
@@ -87,6 +88,7 @@ stages:
 
         echo "Default Working Directory:"
         ls -laR $(System.DefaultWorkingDirectory)
+        ls -la $(Build.ArtifactStagingDirectory)/
 
         echo "Searching tfplan..."
         find /home/vsts/work -name tfplan -type f
