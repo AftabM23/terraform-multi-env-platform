@@ -17,6 +17,17 @@ module "network" {
     webSubnet = {
       address_prefixes = ["10.0.1.0/24"]
       nsg_name         = "internet-web-nsg"
+      nsg_rule ={
+        name = "websubnet_rule1"
+        priority =  110
+        protocol = "*"
+        access = "Allow"
+        source_address_prefix = "*"
+        source_port_range ="*"
+        destination_address_prefix = "*"
+        destination_port_range= "*"
+        direction = "inbound"
+      }
     },
     appSubnet = {
       address_prefixes = ["10.0.2.0/24"]
