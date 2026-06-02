@@ -23,12 +23,19 @@ variable "subnets" {
   type = map(object({
     address_prefixes = list(string)
     nsg_name =string
-    # rules = map(object({
-    #   name = string
-    #   priority = number
-    #   port = string
-    #   source = string 
-    # }))
+    nsg_rule=optional( list(object({
+      name = string
+      priority = number
+      protocol = string
+      source_address_prefix = string
+      source_port_range = string
+      destination_address_prefix  = string
+      destination_port_range = string
+      access = string
+      direction= string
+
+    })),[])
+
   }))
 }
 
