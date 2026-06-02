@@ -117,22 +117,6 @@ stages:
             -backend-config="tenant_id=$tenantId" \
             -backend-config="subscription_id=$(az account show --query id -o tsv)"
 
-    # - task: AzureCLI@2
-    #   displayName: 'Apply'
-    #   inputs:
-    #     azureSubscription: 'terra-con'
-    #     scriptType: 'bash'
-    #     scriptLocation: 'inlineScript'
-    #     addSpnToEnvironment: true
-    #     inlineScript: |
-    #       export ARM_USE_OIDC=true
-    #       export ARM_OIDC_TOKEN=$idToken
-    #       export ARM_CLIENT_ID=$servicePrincipalId
-    #       export ARM_TENANT_ID=$tenantId
-    #       export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-    #       terraform state list
-    #       echo $(backend-key)
-    #       terraform apply /home/vsts/work/1/tfplan/tfplan
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
