@@ -22,10 +22,10 @@ module "network" {
         priority =  110
         protocol = "*"
         access = "Allow"
-        source_address_prefix = "*"
+        source_address_prefix = "Internet"
         source_port_range ="*"
-        destination_address_prefix = "*"
-        destination_port_range= "*"
+        destination_address_prefix = "10.0.1.0/24"
+        destination_port_range= "443"
         direction = "Inbound"
       }]
     },
