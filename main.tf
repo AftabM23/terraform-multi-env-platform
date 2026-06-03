@@ -18,7 +18,7 @@ module "network" {
       address_prefixes = ["10.0.1.0/24"]
       nsg_name         = "internet-web-nsg"
       nsg_rule =[{
-        name = "websubnet_rule1"
+        name = "Allow-InternetTraffic"
         priority =  110
         protocol = "*"
         access = "Allow"
@@ -32,10 +32,32 @@ module "network" {
     appSubnet = {
       address_prefixes = ["10.0.2.0/24"]
       nsg_name         = "web-app-nsg"
+      nsg_rule=[{
+         name = "Allow-webToApp"
+        priority =  110
+        protocol = "*"
+        access = "Allow"
+        source_address_prefix = "10.0.1.0/24"
+        source_port_range ="*"
+        destination_address_prefix = "10.0.2.0/24"
+        destination_port_range= "*"
+        direction = "Inbound"
+      }]
     }
     dbSubnet = {
       address_prefixes = ["10.0.3.0/24"]
       nsg_name         = "app-db-nsg"
+      nsg_rule=[{
+         name = "Allow-appToDB"
+        priority =  110
+        protocol = "*"
+        access = "Allow"
+        source_address_prefix = "10.0.2.0/24"
+        source_port_range ="*"
+        destination_address_prefix = "10.0.3.0/24"
+        destination_port_range= "*"
+        direction = "Inbound"
+      }]
     }
   }
 
