@@ -22,7 +22,7 @@ variable "resource_group_name" {
 variable "subnets" {
   type = map(object({
     address_prefixes = list(string)
-    nsg_name =string
+    nsg_name =optional(string)
     nsg_rule=optional( list(object({
       name = string
       priority = number
