@@ -61,7 +61,7 @@ module "network" {
     
     }
     appGateway-subnet={
-        address_prefix = ["10.0.4.0/24"]
+        address_prefixes = ["10.0.4.0/24"]
       }
   }
 
