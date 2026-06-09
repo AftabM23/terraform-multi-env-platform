@@ -62,3 +62,12 @@ module "network" {
   }
 
 }
+
+module "app-gateway" {
+  source = "./modules/app-gateway"
+  pip-name ="appGateway-PIP"
+  location = module.rg.location
+  rg-name = module.rg.name
+  pip-allocationMethod = "Static"
+  
+}
