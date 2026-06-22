@@ -72,7 +72,7 @@ module "app_gateway" {
   pip_name = "gateway_pip1"
   location = module.rg.location
   rg_name = module.rg.name
-  appGateway_name = "ab_appgateway1"
+  appGateway_name = "ab_appgateway"
   gateway_sku = {
     name = "Standard_v2"
     tier = "Standard_v2"
