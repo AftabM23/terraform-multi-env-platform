@@ -1,7 +1,7 @@
 variable "vnet_name" {
     type = string
     description = "name of the vnet"
-  
+
 }
 
 variable "address_space" {

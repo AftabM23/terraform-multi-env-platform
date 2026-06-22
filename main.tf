@@ -67,11 +67,48 @@ module "network" {
 
 }
 
-module "app-gateway" {
-  source = "./modules/app-gateway"
-  pip-name ="appGateway-PIP"
+module "app_gateway" {
+  source = "./modules/app_gateway"
+  pip_name = "gateway_pip1"
   location = module.rg.location
-  rg-name = module.rg.name
-  pip-allocationMethod = "Static"
+  rg_name = module.rg.name
+  appGateway_name = "ab_appgateway1"
+  gateway_sku = {
+    name = "Standard_v2"
+    tier = "Standard_v2"
+    capacity = 2
+
+  }
+  gateway_autoscaling_config = {
+    max = 10
+    min = 2
+  }
+  frontend_config = {
+    frontend_ip_config_name = "abgateway1_frontend_config"
+    frontend_port_name = "http-port"
+    frontend_port_number = 80
+  }
+  http_listener_name = "ab_http_listener01"
+  listener_protocol_type = "http"
+  routing_rule_config = {rule1={
+    routing_rule_type ="basic"
+    routing_rule_priority =110
+    backend_http_listener_name = "ab_http_listener01"
+    backend_address_pool_name="ab_backend"
+    backend_http_settings_name = "ab_http_backend_settings"
+
+  }}
+  backend_http_settings = {
+    settings_1={
+      cookie_based_affinity = "enabled"
+      protocol= "Http"
+      port = 80
+      request_timeout = 140
+    }
+  }
+  appGW-subnetID = module.network. appGateway_subnet_id
+ backend_pool_config = {
+   ab_backend ={}
+ }
   
 }
