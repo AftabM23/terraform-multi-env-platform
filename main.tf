@@ -90,7 +90,8 @@ module "app_gateway" {
   }
   http_listener_name = "ab_http_listener01"
   listener_protocol_type = "Http"
-  routing_rule_config = {rule1={
+  routing_rule_config = {
+    rule1={
     routing_rule_type ="Basic"
     routing_rule_priority =110
     backend_http_listener_name = "ab_http_listener01"
@@ -99,7 +100,8 @@ module "app_gateway" {
 
   }}
   backend_http_settings = {
-    settings_1={
+  
+    ab_http_backend_settings={
       cookie_based_affinity = "Enabled"
       protocol= "Http"
       port = 80
