@@ -1,6 +1,6 @@
 resource "azurerm_linux_virtual_machine_scale_set" "this" {
     name = var.vmss_meta_config.vmss_name
-    location = var.vmss_meta_config.vmss_location
+    location = var.vmss_meta_config.location
     resource_group_name = var.vmss_meta_config.rg_name
     sku = var.vmss_meta_config.vmss_sku
     admin_username = var.vmss_credential.vmss_admin_username
