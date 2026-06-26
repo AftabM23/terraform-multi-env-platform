@@ -63,6 +63,9 @@ module "network" {
     appGateway-subnet={
         address_prefixes = ["10.0.4.0/24"]
       }
+      AzureBastionSubnet = {
+        address_prefixes =["10.0.5.0/26"]
+      }
   }
 
 }
