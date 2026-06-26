@@ -23,10 +23,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "this" {
       }
     }
     source_image_reference {
-    publisher = var.source_image_referance.publisher
-    offer     = var.source_image_referance.offer
-    sku       = var.source_image_referance.sku
-    version   = var.source_image_referance.version
+    publisher = var.source_image_reference.publisher
+    offer     = var.source_image_reference.offer
+    sku       = var.source_image_reference.sku
+    version   = var.source_image_reference.version
   }
 
 
