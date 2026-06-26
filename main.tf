@@ -123,7 +123,7 @@ module "compute_vmss"{
   vmss_meta_config = {
     rg_name = module.rg.name
     location = module.rg.location
-    vmss_name = "ab_vmss"
+    vmss_name = "abvmss"
     vmss_sku = "Standard_B2s"
   }
   vmss_credential = {
