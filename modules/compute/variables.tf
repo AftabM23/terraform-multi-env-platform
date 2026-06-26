@@ -7,7 +7,7 @@ variable "vmss_meta_config" {
     })
   
 }
-variable "vmss_redential" {
+variable "vmss_credential" {
     type = object({
       vmss_admin_username = string
       vmss_admin_password = string 
@@ -35,4 +35,13 @@ variable "nic_ip_config" {
 
   })
   
+}
+
+variable "source_image_reference" {
+ type=object({
+   publisher = string
+   offer = string
+   sku = string
+   version = string 
+ })  
 }
