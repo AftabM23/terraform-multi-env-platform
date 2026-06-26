@@ -7,6 +7,6 @@ output "appGateway_subnet_id" {
   
 }
 output "app_subnet_id" {
-    value = azure_subnet.this["appSubnet"].id
+    value = azurerm_subnet.this["appSubnet"].id
   
 }
