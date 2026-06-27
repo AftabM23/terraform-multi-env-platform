@@ -7,6 +7,9 @@ variable "vmss_meta_config" {
     })
   
 }
+variable "vmss_instances"{
+  type =number
+}
 variable "vmss_credential" {
     type = object({
       vmss_admin_username = string

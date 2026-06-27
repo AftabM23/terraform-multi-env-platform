@@ -6,6 +6,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "this" {
     admin_username = var.vmss_credential.vmss_admin_username
     admin_password = var.vmss_credential.vmss_admin_password
     disable_password_authentication = false
+    instances = var.vmss_instances
     os_disk {
         caching = var.os_disk_config.caching
         storage_account_type = var.os_disk_config.storage_account_type
