@@ -26,7 +26,7 @@ variable "os_disk_config" {
 }
 variable "vmss_accelerated_networking" {
   type = bool
-  default = true
+  default =false
   description = "vmss accelerated networking"
   
 }
