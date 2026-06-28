@@ -129,7 +129,7 @@ module "compute_vmss"{
   vmss_instances = 2
   vmss_credential = {
     vmss_admin_username = "aftab"
-    vmss_admin_password = "Ab@230599"
+    vmss_public_ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID7H9bx+OuqCO3mM94r/Xc6PPKodsg2xBka6lg2Hzfh/ aftab@Aftab"
   }
   os_disk_config = {
     caching = "ReadWrite"

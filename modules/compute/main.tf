@@ -4,8 +4,13 @@ resource "azurerm_linux_virtual_machine_scale_set" "this" {
     resource_group_name = var.vmss_meta_config.rg_name
     sku = var.vmss_meta_config.vmss_sku
     admin_username = var.vmss_credential.vmss_admin_username
-    admin_password = var.vmss_credential.vmss_admin_password
-    disable_password_authentication = false
+    
+    disable_password_authentication= true
+    admin_ssh_key {
+      username = var.vmss_credential.vmss_admin_username
+      public_key = var.vmss_credential.vmss_public_ssh_key
+    }
+   
     instances = var.vmss_instances
     os_disk {
         caching = var.os_disk_config.caching

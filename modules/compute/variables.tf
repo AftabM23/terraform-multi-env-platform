@@ -13,7 +13,7 @@ variable "vmss_instances"{
 variable "vmss_credential" {
     type = object({
       vmss_admin_username = string
-      vmss_admin_password = string 
+      vmss_public_ssh_key = string 
     })
   
 }
