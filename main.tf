@@ -118,32 +118,32 @@ module "app_gateway" {
   
 }
 
-module "compute_vmss"{
-  source = "./modules/compute"
-  vmss_meta_config = {
-    rg_name = module.rg.name
-    location = module.rg.location
-    vmss_name = "abvmss"
-    vmss_sku = "Standard_B16pls_v2"
-  }
-  vmss_instances = 1
-  vmss_credential = {
-    vmss_admin_username = "aftab"
-    vmss_admin_password = "Ab@230599"
-  }
-  os_disk_config = {
-    caching = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+# module "compute_vmss"{
+#   source = "./modules/compute"
+#   vmss_meta_config = {
+#     rg_name = module.rg.name
+#     location = module.rg.location
+#     vmss_name = "abvmss"
+#     vmss_sku = "Standard_B16pls_v2"
+#   }
+#   vmss_instances = 1
+#   vmss_credential = {
+#     vmss_admin_username = "aftab"
+#     vmss_admin_password = "Ab@230599"
+#   }
+#   os_disk_config = {
+#     caching = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
 
-  }
-  source_image_reference = {
-    publisher = "Canonical"
-    offer     = "ubuntu-24_04-lts"
-    sku       = "server"
-    version   = "latest"
-  }
-  nic_ip_config = {
-    subnet_id = module.network.app_subnet_id
-  }
+#   }
+#   source_image_reference = {
+#     publisher = "Canonical"
+#     offer     = "ubuntu-24_04-lts"
+#     sku       = "server"
+#     version   = "latest"
+#   }
+#   nic_ip_config = {
+#     subnet_id = module.network.app_subnet_id
+#   }
 
-  }
+#   }
