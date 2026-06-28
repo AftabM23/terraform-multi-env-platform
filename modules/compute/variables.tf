@@ -4,6 +4,7 @@ variable "vmss_meta_config" {
       location =string
       rg_name = string
       vmss_sku = string
+      computer_prefix = string
     })
   
 }
