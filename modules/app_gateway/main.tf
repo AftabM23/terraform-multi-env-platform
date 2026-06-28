@@ -79,6 +79,7 @@ dynamic "autoscale_configuration" {
       request_timeout = backend_http_settings.value.request_timeout
       port = backend_http_settings.value.port
       probe_name = "nginx-backend-healthcheck-probe"
+      pick_host_name_from_backend_address = true
     }
     
   }
