@@ -125,6 +125,7 @@ module "compute_vmss"{
     location = module.rg.location
     vmss_name = "abvmss"
     vmss_sku = "Standard_DC2s_v3"
+    computer_prefix ="web"
   }
   vmss_instances = 2
   vmss_credential = {
