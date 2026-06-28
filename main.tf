@@ -126,7 +126,7 @@ module "compute_vmss"{
     vmss_name = "abvmss"
     vmss_sku = "Standard_DC2s_v3"
   }
-  vmss_instances = 1
+  vmss_instances = 2
   vmss_credential = {
     vmss_admin_username = "aftab"
     vmss_admin_password = "Ab@230599"
