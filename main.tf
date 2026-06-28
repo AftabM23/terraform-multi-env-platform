@@ -145,6 +145,7 @@ module "compute_vmss"{
   }
   nic_ip_config = {
     subnet_id = module.network.app_subnet_id
+    application_gateway_backend_address_pool_ids = [ module.app_gateway.backend_pool_ids["ab_backend"]]
   }
 
   }
