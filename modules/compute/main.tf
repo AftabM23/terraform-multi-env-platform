@@ -36,6 +36,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "this" {
     version   = var.source_image_reference.version
   }
 
-
+  custom_data = base64encode(file("${path.root}/scripts/cloud-init.yaml"))
   
 }
