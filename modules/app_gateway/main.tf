@@ -89,6 +89,7 @@ dynamic "autoscale_configuration" {
     unhealthy_threshold = 3
     interval = 40
     path = "/"
+    pick_host_name_from_backend_http_settings = true
 
   }
   tags = var.tags
