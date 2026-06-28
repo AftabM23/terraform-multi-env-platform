@@ -124,6 +124,6 @@ stages:
           export ARM_TENANT_ID=$tenantId
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
-          terraform apply -auto-approve $(Pipeline.Workspace)/tfplan/tfplan 2>&1
+          terraform apply -auto-approve $(Pipeline.Workspace)/tfplan/tfplan 2>&1 | tee /tmp/tf.log || true
           echo "=== TERRAFORM DEBUG LOG (errors only) ==="
           grep -A 10 "error\|Error\|VMSS\|virtualMachine" /home/vsts/work/tf-debug.log | tail -100
