@@ -78,8 +78,18 @@ dynamic "autoscale_configuration" {
       protocol = backend_http_settings.value.protocol
       request_timeout = backend_http_settings.value.request_timeout
       port = backend_http_settings.value.port
+      probe_name = "nginx-backend-healthcheck-probe"
     }
     
+  }
+  probe {
+    name = "nginx-backend-healthcheck-probe"
+    protocol = "Http"
+    timeout = 40
+    unhealthy_threshold = 3
+    interval = 40
+    path = "/"
+
   }
   tags = var.tags
 }
