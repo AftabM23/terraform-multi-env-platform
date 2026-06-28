@@ -53,7 +53,6 @@ stages:
           export ARM_CLIENT_ID=$servicePrincipalId
           export ARM_TENANT_ID=$tenantId
           export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-
           terraform plan -out=tfplan
           cp tfplan $(Build.ArtifactStagingDirectory)/tfplan 
           
@@ -103,10 +102,24 @@ stages:
 
 
 
-    - task: TerraformTask@5
-      displayName: 'Apply the infra'
+    # - task: TerraformTask@5
+    #   displayName: 'Apply the infra'
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'apply'
+    #     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
+    #     environmentServiceNameAzureRM: 'terra-con'
+
+    - task: AzureCLI@2
+      displayName: Apply the infra
       inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
-        environmentServiceNameAzureRM: 'terra-con'
+        azureSubscription: 'terra-con'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          terraform apply -auto-approve $(Pipeline.Workspace)/tfplan/tfplan 2>&1
+      env:
+        ARM_USE_OIDC: true
+        ARM_CLIENT_ID: $(clientId)
+        ARM_TENANT_ID: $(tenantId)
+        ARM_SUBSCRIPTION_ID: $(subscriptionId)
