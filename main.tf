@@ -124,7 +124,7 @@ module "compute_vmss"{
     rg_name = module.rg.name
     location = module.rg.location
     vmss_name = "abvmss"
-    vmss_sku = "Standard_D2as_v5"
+    vmss_sku = "Standard_B16pls_v2"
   }
   vmss_instances = 1
   vmss_credential = {
