@@ -127,3 +127,21 @@ stages:
           terraform apply -auto-approve $(Pipeline.Workspace)/tfplan/tfplan 2>&1 | tee /tmp/tf.log || true
           echo "=== TERRAFORM DEBUG LOG (errors only) ==="
           grep -A 10 "error\|Error\|VMSS\|virtualMachine" /home/vsts/work/tf-debug.log | tail -100
+
+
+
+    - task: AzureCLI@2
+      displayName: Apply the infra
+      inputs:
+        azureSubscription: 'terra-con'
+        scriptType: bash
+        scriptLocation: inlineScript
+        addSpnToEnvironment: true
+        inlineScript: |
+          export ARM_USE_OIDC=true
+          export ARM_OIDC_TOKEN=$idToken
+          export ARM_CLIENT_ID=$servicePrincipalId
+          export ARM_TENANT_ID=$tenantId
+          export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+
+          terraform destroy -auto-approve
