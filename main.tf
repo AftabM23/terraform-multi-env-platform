@@ -154,9 +154,10 @@ vmss_autoscale_metaconfig ={
   rg_name = module.rg.name
 }
 vmss_autoscale_profile = {
+  name = "abvmss_autoscale_profile"
   capacity_maximum = 10
   capacity_minimum = 3
-  default = 3
+  capacity_default = 3
 }
 rules = {
   cpu_scale_out={

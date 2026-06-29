@@ -78,10 +78,11 @@ variable "vmss_autoscale_profile" {
 
   
   type = object({
+    name = string
     capacity_maximum =number
     
     capacity_minimum =number 
-    default = number
+    capacity_default = number
   })
   
 }
