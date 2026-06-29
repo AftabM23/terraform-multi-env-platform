@@ -65,3 +65,23 @@ variable "rules" {
     scale_action_cooldown = string
   }))
 }
+
+variable "vmss_autoscale_metaconfig" {
+  type = object({
+    name =string
+    location = string
+    rg_name = string 
+  })
+  
+}
+variable "vmss_autoscale_profile" {
+
+  
+  type = object({
+    capacity_maximum =number
+    
+    capacity_minimum =number 
+    default = number
+  })
+  
+}

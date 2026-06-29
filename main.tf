@@ -148,6 +148,16 @@ module "compute_vmss"{
     application_gateway_backend_address_pool_ids = [ module.app_gateway.backend_pool_ids["ab_backend"]]
   }
 
+vmss_autoscale_metaconfig ={
+  name = "abvmss_autoscale"
+  location = module.rg.location
+  rg_name = module.rg.name
+}
+vmss_autoscale_profile = {
+  capacity_maximum = 10
+  capacity_minimum = 3
+  default = 3
+}
 rules = {
   cpu_scale_out={
     metric_name ="Percentage CPU"
