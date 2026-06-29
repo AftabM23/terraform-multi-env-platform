@@ -37,5 +37,51 @@ resource "azurerm_linux_virtual_machine_scale_set" "this" {
   }
 
   custom_data = base64encode(file("${path.root}/scripts/cloud-init.yaml"))
+    lifecycle {
+     ignore_changes = [ instances ]
+   }
   
+  
+}
+resource "azurerm_monitor_autoscale_setting" "this" {
+  name = var.vmss_autoscale_metaconfig.name
+  location = var.vmss_autoscale_metaconfig.location
+  resource_group_name = var.vmss_autoscale_metaconfig.rg_name
+    target_resource_id = azurerm_linux_virtual_machine_scale_set.this.id
+   profile {
+     name = var.vmss_autoscale_profile.name
+    
+     capacity {
+       maximum = var.vmss_autoscale_profile.capacity_maximum
+       minimum = var.vmss_autoscale_profile.capacity_minimum
+       default = var.vmss_autoscale_profile.capacity_default
+     }
+     dynamic "rule" {
+      for_each = var.rules
+      content {
+        
+       metric_trigger {
+         metric_name = rule.value.metric_name
+         metric_namespace = rule.value.metric_namespace
+
+         metric_resource_id =  azurerm_linux_virtual_machine_scale_set.this.id
+         time_grain = rule.value.time_grain
+         time_window = rule.value.time_window
+
+         statistic = rule.value.statistic
+          time_aggregation = rule.value.time_aggregation
+          operator = rule.value.operator
+          threshold = rule.value.threshold
+       }
+       scale_action {
+         direction = rule.value.scale_action_direction
+         type = rule.value.scale_action_type
+         value = rule.value.scale_action_value
+         cooldown = rule.value.scale_action_cooldown
+       }
+     }
+      }
+
+   }
+ 
 }

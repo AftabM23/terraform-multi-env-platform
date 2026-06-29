@@ -49,3 +49,19 @@ variable "source_image_reference" {
    version = string 
  })  
 }
+variable "rules" {
+  type = map(object({
+    metric_name = string
+    metric_namespace= string
+    time_grain = string
+    time_window = string
+    statistic = string
+    time_aggregation= string
+    operator = string
+    threshold= number
+    scale_action_direction= string
+    scale_action_type = string
+    scale_action_value = number
+    scale_action_cooldown = string
+  }))
+}

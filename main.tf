@@ -148,4 +148,35 @@ module "compute_vmss"{
     application_gateway_backend_address_pool_ids = [ module.app_gateway.backend_pool_ids["ab_backend"]]
   }
 
+rules = {
+  cpu_scale_out={
+    metric_name ="Percentage CPU"
+    metric_namespace = "Microsoft.Compute/virtualMachineScaleSets"
+    time_grain =  "PT1M"
+    time_window ="PT5M"
+    statistic ="Average"
+    time_aggregation =  "Average"
+    operator = "GreaterThan"
+    threshold = 80
+    scale_action_direction = "Increase"
+    scale_action_type = "ChangeCount"
+    scale_action_value = 1
+    scale_action_cooldown = "PT10M"
+  }
+   cpu_scale_in={
+    metric_name ="Percentage CPU"
+    metric_namespace = "Microsoft.Compute/virtualMachineScaleSets"
+    time_grain =  "PT1M"
+    time_window ="PT10M"
+    statistic ="Average"
+    time_aggregation =  "Average"
+    operator = "LessThan"
+    threshold = 40
+    scale_action_direction = "Decrease"
+    scale_action_type = "ChangeCount"
+    scale_action_value = 1
+    scale_action_cooldown = "PT10M"
+  }
+}
+
   }
