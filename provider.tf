@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "azurerm" {
-  resource_group_name  = "ab-terrastorage"
-  storage_account_name = "abstorageterra"
-  container_name       = "tf-state-container02"
+  resource_group_name  = "storageacc"
+  storage_account_name = "abstorage23"
+  container_name       = "state-files"
   key                  = "terraform.tfstate"
   use_azuread_auth     = true
   use_oidc             = true
