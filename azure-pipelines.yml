@@ -23,7 +23,7 @@ stages:
         inlineScript: | 
            az storage blob list \
             --account-name abstorage23 \
-            --container-name tf-state-container02 \
+            --container-name state-files \
             --auth-mode login
     - task: AzureCLI@2
       displayName: 'Init'
