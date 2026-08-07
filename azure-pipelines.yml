@@ -30,8 +30,8 @@ stages:
           terraform init \
             -backend-config="resource_group_name=storageacc" \
             -backend-config="storage_account_name=abstorage23" \
-            -backend-config="container_name=state-files" \
-            -backend-config="key=$(backend-key)" \
+            -backend-config="container_name=tf-state-container02" \
+            -backend-config="key=terraform.tfstate" \
             -backend-config="use_azuread_auth=true" \
             -backend-config="use_oidc=true" \
             -backend-config="oidc_token=$idToken" \
