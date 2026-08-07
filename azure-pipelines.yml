@@ -21,25 +21,23 @@ stages:
         scriptLocation: 'inlineScript'
         addSpnToEnvironment: true
         inlineScript: |
-          # export ARM_USE_OIDC=true
-          # export ARM_OIDC_TOKEN=$idToken
-          # export ARM_CLIENT_ID=$servicePrincipalId
-          # export ARM_TENANT_ID=$tenantId
-          # export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+          export ARM_USE_OIDC=true
+          export ARM_OIDC_TOKEN=$idToken
+          export ARM_CLIENT_ID=$servicePrincipalId
+          export ARM_TENANT_ID=$tenantId
+          export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           
-          # terraform init \
-          #   -backend-config="resource_group_name=ab-terrastorage" \
-          #   -backend-config="storage_account_name=abstorageterra" \
-          #   -backend-config="container_name=tf-state-container02" \
-          #   -backend-config="key=$(backend-key)" \
-          #   -backend-config="use_azuread_auth=true" \
-          #   -backend-config="use_oidc=true" \
-          #   -backend-config="oidc_token=$idToken" \
-          #   -backend-config="client_id=$servicePrincipalId" \
-          #   -backend-config="tenant_id=$tenantId" \
-          #   -backend-config="subscription_id=$(az account show --query id -o tsv)"
-           
-          terraform init
+          terraform init \
+            -backend-config="resource_group_name=storageacc" \
+            -backend-config="storage_account_name=abstorage23" \
+            -backend-config="container_name=state-files" \
+            -backend-config="key=$(backend-key)" \
+            -backend-config="use_azuread_auth=true" \
+            -backend-config="use_oidc=true" \
+            -backend-config="oidc_token=$idToken" \
+            -backend-config="client_id=$servicePrincipalId" \
+            -backend-config="tenant_id=$tenantId" \
+            -backend-config="subscription_id=$(az account show --query id -o tsv)"
    
 
     - task: AzureCLI@2
