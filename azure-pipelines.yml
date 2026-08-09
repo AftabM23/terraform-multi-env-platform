@@ -13,34 +13,7 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.10.5'
-    - task: AzureCLI@2
-      displayName: 'checkinggggggg'
-      inputs:
-        azureSubscription: 'terra-con'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        addSpnToEnvironment: true
-        inlineScript: | 
-          
-           echo "Client ID (from token): $servicePrincipalId" \
-            az ad sp show --id $servicePrincipalId --query "{appId:appId, objectId:id, displayName:displayName}" -o json
-           az role assignment list \
-            --scope /subscriptions/573d87ec-1220-4903-9b51-35a3063dc072/resourceGroups/storageacc/providers/Microsoft.Storage/storageAccounts/abstorage23 \
-            --query "[].{principalId:principalId, principalName:principalName, role:roleDefinitionName}" \
-            -o table
-    - task: AzureCLI@2
-      displayName: 'checkinggggggg'
-      inputs:
-        azureSubscription: 'terra-con'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        addSpnToEnvironment: true
-        inlineScript: | 
-          
-           az storage blob list \
-            --account-name abstorage23 \
-            --container-name state-files \
-            --auth-mode login
+   
     - task: AzureCLI@2
       displayName: 'Init'
       inputs:
