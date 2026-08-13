@@ -26,7 +26,7 @@ module "network" {
       source_address_prefix      = "10.0.4.0/24"
       source_port_range          = "*"
       destination_address_prefix = "10.0.1.0/24"
-      destination_port_range     = "8080"
+      destination_port_range     = "80"
       direction                  = "Inbound"
     },
 
