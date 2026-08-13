@@ -49,7 +49,7 @@ module "network" {
   direction                  = "Inbound"
   access                     = "Allow"
   protocol                   = "Tcp"
-  source_address_prefix      = "<AzureBastionSubnet CIDR>"
+  source_address_prefix      = "10.0.5.0/26"
   source_port_range          = "*"
   destination_address_prefix = "10.0.2.0/24"
   destination_port_range     = "22"
