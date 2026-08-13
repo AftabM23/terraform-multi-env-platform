@@ -42,7 +42,18 @@ module "network" {
         destination_address_prefix = "10.0.2.0/24"
         destination_port_range= "*"
         direction = "Inbound"
-      }]
+      },
+      {
+  name                       = "Allow-Bastion-SSH"
+  priority                   = 100
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_address_prefix      = "<AzureBastionSubnet CIDR>"
+  source_port_range          = "*"
+  destination_address_prefix = "10.0.2.0/24"
+  destination_port_range     = "22"
+}]
     }
     dbSubnet = {
       address_prefixes = ["10.0.3.0/24"]
