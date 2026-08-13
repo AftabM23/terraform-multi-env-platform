@@ -100,7 +100,7 @@ module "app_gateway" {
   frontend_config = {
     frontend_ip_config_name = "abgateway1_frontend_config"
     frontend_port_name = "http-port"
-    frontend_port_number = 80
+    frontend_port_number = 8080
   }
   http_listener_name = "ab_http_listener01"
   listener_protocol_type = "Http"
@@ -118,7 +118,7 @@ module "app_gateway" {
     ab_http_backend_settings={
       cookie_based_affinity = "Enabled"
       protocol= "Http"
-      port = 80
+      port = 8080
       request_timeout = 140
     }
   }
