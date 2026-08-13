@@ -14,7 +14,10 @@ module "network" {
   location            = module.rg.location
 
   subnets = {
-    nsg_rule = [
+    webSubnet = {
+      address_prefixes = ["10.0.1.0/24"]
+      nsg_name         = "internet-web-nsg"
+      nsg_rule = [
     {
       name                       = "Allow-AppGateway-To-Web"
       priority                   = 110
@@ -39,7 +42,8 @@ module "network" {
       destination_port_range     = "22"
       direction                  = "Inbound"
     }
-  ],
+  ]
+    },
     appSubnet = {
       address_prefixes = ["10.0.2.0/24"]
       nsg_name         = "web-app-nsg"
