@@ -133,7 +133,7 @@ module "app_gateway" {
     ab_http_backend_settings={
       cookie_based_affinity = "Enabled"
       protocol= "Http"
-      port = 8080
+      port = 80
       request_timeout = 140
     }
   }
