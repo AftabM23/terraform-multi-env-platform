@@ -191,3 +191,19 @@ rules = {
 }
 
   }
+
+  module "bastion" {
+    source = "./modules/bastion"
+    bastion_pip_config ={
+      pip_name = "bastion_pip"
+      location = module.rg.location
+      rg_name = module.rg.name
+    }
+    bastion_config = {
+      bastion_name = "bastion_vm"
+      rg_name = module.rg.name
+      location = module.rg.location
+      subnet_id = module.network.AzureBastionSubnet_id
+    }
+    
+  }
