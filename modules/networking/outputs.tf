@@ -15,3 +15,8 @@ output "AzureBastionSubnet_id" {
     value = azurerm_subnet.this["AzureBastionSubnet"].id
   
 }
+
+output "web_subnet_id" {
+    value = azurerm_subnet.this["webSubnet"].id
+  
+}

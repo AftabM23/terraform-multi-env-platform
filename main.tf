@@ -14,21 +14,32 @@ module "network" {
   location            = module.rg.location
 
   subnets = {
-    webSubnet = {
-      address_prefixes = ["10.0.1.0/24"]
-      nsg_name         = "internet-web-nsg"
-      nsg_rule =[{
-        name = "Allow-InternetTraffic"
-        priority =  110
-        protocol = "*"
-        access = "Allow"
-        source_address_prefix = "Internet"
-        source_port_range ="*"
-        destination_address_prefix = "10.0.1.0/24"
-        destination_port_range= "443"
-        direction = "Inbound"
-      }]
+    nsg_rule = [
+    {
+      name                       = "Allow-AppGateway-To-Web"
+      priority                   = 110
+      protocol                   = "Tcp"
+      access                     = "Allow"
+      source_address_prefix      = "10.0.4.0/24"
+      source_port_range          = "*"
+      destination_address_prefix = "10.0.1.0/24"
+      destination_port_range     = "8080"
+      direction                  = "Inbound"
     },
+
+    # Needed if you want Bastion SSH into this VMSS
+    {
+      name                       = "Allow-Bastion-SSH"
+      priority                   = 120
+      protocol                   = "Tcp"
+      access                     = "Allow"
+      source_address_prefix      = "10.0.5.0/26"
+      source_port_range          = "*"
+      destination_address_prefix = "10.0.1.0/24"
+      destination_port_range     = "22"
+      direction                  = "Inbound"
+    }
+  ],
     appSubnet = {
       address_prefixes = ["10.0.2.0/24"]
       nsg_name         = "web-app-nsg"
@@ -122,7 +133,7 @@ module "app_gateway" {
       request_timeout = 140
     }
   }
-  appGW-subnetID = module.network. appGateway_subnet_id
+  appGW-subnetID = module.network.appGateway_subnet_id
  backend_pool_config = {
    ab_backend ={}
  }
@@ -155,7 +166,7 @@ module "compute_vmss"{
     version   = "latest"
   }
   nic_ip_config = {
-    subnet_id = module.network.app_subnet_id
+    subnet_id = module.network.web_subnet_id
     application_gateway_backend_address_pool_ids = [ module.app_gateway.backend_pool_ids["ab_backend"]]
   }
 
